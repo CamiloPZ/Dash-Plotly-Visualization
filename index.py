@@ -12,15 +12,16 @@ import dash_bootstrap_components as dbc
 from dash_extensions import Lottie
 import plotly.graph_objects as go
 import numpy as np
+
+
 np.random.seed(1)
 
-
-
-TEMPLATE = 'plotly_dark'
+TEMPLATE = "plotly_dark"
 
 df_i = px.data.iris()
-fig_i = px.scatter_3d(df_i, x='sepal_length', y='sepal_width', z='petal_width',
-              color='species')
+fig_i = px.scatter_3d(
+    df_i, x="sepal_length", y="sepal_width", z="petal_width", color="species"
+)
 fig_i.update_layout(template=TEMPLATE)
 
 N = 100
@@ -31,20 +32,29 @@ random_y2 = np.random.randn(N) - 5
 
 # Create traces
 fig_l = go.Figure()
-fig_l.add_trace(go.Scatter(x=random_x, y=random_y0,
-                    mode='lines',
-                    name='lines'))
-fig_l.add_trace(go.Scatter(x=random_x, y=random_y1,
-                    mode='lines+markers',
-                    name='lines+markers'))
-fig_l.add_trace(go.Scatter(x=random_x, y=random_y2,
-                    mode='markers', name='markers'))
+fig_l.add_trace(go.Scatter(x=random_x, y=random_y0, mode="lines", name="lines"))
+fig_l.add_trace(
+    go.Scatter(x=random_x, y=random_y1, mode="lines+markers", name="lines+markers")
+)
+fig_l.add_trace(go.Scatter(x=random_x, y=random_y2, mode="markers", name="markers"))
 
 fig_l.update_layout(template=TEMPLATE)
 
 # Add data
-month = ['January', 'February', 'March', 'April', 'May', 'June', 'July',
-         'August', 'September', 'October', 'November', 'December']
+month = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+]
 high_2000 = [32.5, 37.6, 49.9, 53.0, 69.1, 75.4, 76.5, 76.6, 70.7, 60.6, 45.1, 29.3]
 low_2000 = [13.8, 22.3, 32.5, 37.2, 49.9, 56.1, 57.7, 58.3, 51.2, 42.8, 31.6, 15.9]
 high_2007 = [36.5, 26.6, 43.6, 52.3, 71.5, 81.4, 80.5, 82.2, 76.0, 67.3, 46.1, 35.0]
@@ -54,25 +64,57 @@ low_2014 = [12.7, 14.3, 18.6, 35.5, 49.9, 58.0, 60.0, 58.6, 51.7, 45.2, 32.2, 29
 
 fig_l2 = go.Figure()
 # Create and style traces
-fig_l2.add_trace(go.Scatter(x=month, y=high_2014, name='High 2014',
-                         line=dict(color='firebrick', width=4)))
-fig_l2.add_trace(go.Scatter(x=month, y=low_2014, name = 'Low 2014',
-                         line=dict(color='royalblue', width=4)))
-fig_l2.add_trace(go.Scatter(x=month, y=high_2007, name='High 2007',
-                         line=dict(color='firebrick', width=4,
-                              dash='dash') # dash options include 'dash', 'dot', and 'dashdot'
-))
-fig_l2.add_trace(go.Scatter(x=month, y=low_2007, name='Low 2007',
-                         line = dict(color='royalblue', width=4, dash='dash')))
-fig_l2.add_trace(go.Scatter(x=month, y=high_2000, name='High 2000',
-                         line = dict(color='firebrick', width=4, dash='dot')))
-fig_l2.add_trace(go.Scatter(x=month, y=low_2000, name='Low 2000',
-                         line=dict(color='royalblue', width=4, dash='dot')))
+fig_l2.add_trace(
+    go.Scatter(
+        x=month, y=high_2014, name="High 2014", line=dict(color="firebrick", width=4)
+    )
+)
+fig_l2.add_trace(
+    go.Scatter(
+        x=month, y=low_2014, name="Low 2014", line=dict(color="royalblue", width=4)
+    )
+)
+fig_l2.add_trace(
+    go.Scatter(
+        x=month,
+        y=high_2007,
+        name="High 2007",
+        line=dict(
+            color="firebrick", width=4, dash="dash"
+        ),  # dash options include 'dash', 'dot', and 'dashdot'
+    )
+)
+fig_l2.add_trace(
+    go.Scatter(
+        x=month,
+        y=low_2007,
+        name="Low 2007",
+        line=dict(color="royalblue", width=4, dash="dash"),
+    )
+)
+fig_l2.add_trace(
+    go.Scatter(
+        x=month,
+        y=high_2000,
+        name="High 2000",
+        line=dict(color="firebrick", width=4, dash="dot"),
+    )
+)
+fig_l2.add_trace(
+    go.Scatter(
+        x=month,
+        y=low_2000,
+        name="Low 2000",
+        line=dict(color="royalblue", width=4, dash="dot"),
+    )
+)
 
 # Edit the layout
-fig_l2.update_layout(title='Average High and Low Temperatures in New York',
-                   xaxis_title='Month',
-                   yaxis_title='Temperature (degrees F)')
+fig_l2.update_layout(
+    title="Average High and Low Temperatures in New York",
+    xaxis_title="Month",
+    yaxis_title="Temperature (degrees F)",
+)
 
 fig_l2.update_layout(template=TEMPLATE)
 
@@ -100,15 +142,18 @@ options = dict(
     rendererSettings=dict(preserveAspectRatio="xMidYMid slice"),
 )
 
-colorscale = [[0, 'gold'], [0.5, 'mediumturquoise'], [1, 'lightsalmon']]
-fig_col = go.Figure(data =
-    go.Contour(
-        z=[[10, 10.625, 12.5, 15.625, 20],
-           [5.625, 6.25, 8.125, 11.25, 15.625],
-           [2.5, 3.125, 5., 8.125, 12.5],
-           [0.625, 1.25, 3.125, 6.25, 10.625],
-           [0, 0.625, 2.5, 5.625, 10]],
-        colorscale=colorscale)
+colorscale = [[0, "gold"], [0.5, "mediumturquoise"], [1, "lightsalmon"]]
+fig_col = go.Figure(
+    data=go.Contour(
+        z=[
+            [10, 10.625, 12.5, 15.625, 20],
+            [5.625, 6.25, 8.125, 11.25, 15.625],
+            [2.5, 3.125, 5.0, 8.125, 12.5],
+            [0.625, 1.25, 3.125, 6.25, 10.625],
+            [0, 0.625, 2.5, 5.625, 10],
+        ],
+        colorscale=colorscale,
+    )
 )
 
 fig_col.update_layout(template=TEMPLATE)
@@ -117,17 +162,30 @@ df = px.data.tips()
 X = df.total_bill.values[:, None]
 X_train, X_test, y_train, y_test = train_test_split(X, df.tip, random_state=42)
 
+fig_hist = px.histogram(
+    df,
+    x="total_bill",
+    y="tip",
+    color="sex",
+    marginal="box",  # or violin, rug
+    hover_data=df.columns,
+)
+fig_hist.update_layout(template=TEMPLATE)
 models = {
     "Regression": linear_model.LinearRegression,
     "Decision Tree": tree.DecisionTreeRegressor,
     "k-NN": neighbors.KNeighborsRegressor,
 }
 
-fig_caja = px.box(df, x="time", y="total_bill", color="smoker",
-             notched=True, # used notched shape
-             title="Box plot of total bill",
-             hover_data=["day"] # add day column to hover data
-            )
+fig_caja = px.box(
+    df,
+    x="time",
+    y="total_bill",
+    color="smoker",
+    notched=True,  # used notched shape
+    title="Box plot of total bill",
+    hover_data=["day"],  # add day column to hover data
+)
 fig_caja.update_layout(template=TEMPLATE)
 
 dff = px.data.gapminder()
@@ -179,9 +237,15 @@ app = dash.Dash(
 )
 
 app.layout = html.Div(
-    [   
+    [
         html.Br(),
-        html.H1("Ejemplos de gráficos interactivos", style={"textAlign": "center", "font-family": "Times New Roman",}),
+        html.H1(
+            "Ejemplos de gráficos interactivos",
+            style={
+                "textAlign": "center",
+                "font-family": "Times New Roman",
+            },
+        ),
         html.Br(),
         dbc.CardDeck(
             [
@@ -378,28 +442,44 @@ app.layout = html.Div(
             ]
         ),
         html.Br(),
-        dbc.Row([
-            dbc.Col([
-                 dcc.Graph(id="caja1", figure=fig_caja),
-            ]),
-            dbc.Col([
-                dcc.Graph(id="caja2", figure=fig_col),
-            ]),
-            dbc.Col([
-                dcc.Graph(id="caja3", figure=fig_i),
-            ]),
-        ], justify="around",
-            align="center",),
+        dbc.Row(
+            [
+                dbc.Col(
+                    [
+                        dcc.Graph(id="caja1", figure=fig_caja),
+                    ]
+                ),
+                dbc.Col(
+                    [
+                        dcc.Graph(id="caja2", figure=fig_col),
+                    ]
+                ),
+                dbc.Col(
+                    [
+                        dcc.Graph(id="caja3", figure=fig_i),
+                    ]
+                ),
+            ],
+            justify="around",
+            align="center",
+        ),
         html.Br(),
-        dbc.Row([
-            dbc.Col([
-                dcc.Graph(id="line1", figure=fig_l),
-            ]),
-            dbc.Col([
-                dcc.Graph(id="line2", figure=fig_l2),
-            ]),
-        ], justify="around",
-            align="center",),
+        dbc.Row(
+            [
+                dbc.Col(
+                    [
+                        dcc.Graph(id="line1", figure=fig_l),
+                    ]
+                ),
+                dbc.Col(
+                    [
+                        dcc.Graph(id="line2", figure=fig_l2),
+                    ]
+                ),
+            ],
+            justify="around",
+            align="center",
+        ),
         html.Br(),
         dbc.Row(
             [
@@ -429,11 +509,12 @@ app.layout = html.Div(
                 ),
                 dbc.Col(
                     [
-                        
-                        dcc.Graph(id="bar_ani", figure=fig),
+                        dcc.Graph(id="bar_ani", figure=fig_hist),
                     ]
                 ),
-            ], className="dbc_dark", justify="around",
+            ],
+            className="dbc_dark",
+            justify="around",
             align="center",
         ),
         html.Br(),
@@ -465,7 +546,8 @@ app.layout = html.Div(
             clearable=False,
         ),
         dcc.Graph(id="graph_ani"),
-    ], className="dbc_dark",
+    ],
+    className="dbc_dark",
 )
 
 
